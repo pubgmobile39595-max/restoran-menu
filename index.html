@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=12" />
+<link rel="stylesheet" href="style.css?v=13" />
 </head>
 <body>
 
@@ -118,8 +118,8 @@
         <h2>Telefonunuzla okutun</h2>
         <p>Masadaki QR kodu okutarak bu menüye ulaşabilirsiniz.</p>
         <div class="qr-actions">
-          <button class="btn-mini" id="printBtn">🖨️ Yazdır</button>
-          <button class="btn-mini" id="shareBtn">📤 Paylaş</button>
+          <button class="btn-mini" id="printBtn" type="button">🖨️ Yazdır</button>
+          <button class="btn-mini" id="shareBtn" type="button">📤 Paylaş</button>
         </div>
       </div>
       <div class="qr-code">
@@ -218,7 +218,7 @@
 <aside class="cart-panel" id="cartPanel">
   <div class="cart-panel__header">
     <h3>🛒 Sepetim</h3>
-    <button class="cart-panel__close" id="cartClose">✕</button>
+    <button class="cart-panel__close" id="cartClose" type="button">✕</button>
   </div>
   <div class="cart-panel__body">
     <div class="cart-empty" id="cartEmpty">
@@ -232,26 +232,26 @@
       <span>Toplam:</span>
       <strong id="cartTotal">0₺</strong>
     </div>
-    <button class="btn-submit" id="cartSend">
+    <button class="btn-submit" id="cartSend" type="button">
       <span>💬</span> WhatsApp ile Sipariş Ver
     </button>
-    <button class="cart-clear" id="cartClear">Sepeti Temizle</button>
+    <button class="cart-clear" id="cartClear" type="button">Sepeti Temizle</button>
   </div>
 </aside>
 <div class="cart-overlay" id="cartOverlay"></div>
 
 <div class="modal" id="waiterModal">
   <div class="modal__content modal__content--small">
-    <button class="modal__close" id="waiterClose">✕</button>
+    <button class="modal__close" id="waiterClose" type="button">✕</button>
     <div class="waiter-content">
       <div class="waiter-icon">🔔</div>
       <h2>Garson Çağır</h2>
       <p>Ne için çağırıyorsunuz?</p>
       <div class="waiter-options">
-        <button data-reason="Sipariş">📝 Sipariş</button>
-        <button data-reason="Hesap">💳 Hesap</button>
-        <button data-reason="Yardım">❓ Yardım</button>
-        <button data-reason="Su">💧 Su</button>
+        <button type="button" data-reason="Sipariş">📝 Sipariş</button>
+        <button type="button" data-reason="Hesap">💳 Hesap</button>
+        <button type="button" data-reason="Yardım">❓ Yardım</button>
+        <button type="button" data-reason="Su">💧 Su</button>
       </div>
     </div>
   </div>
@@ -259,7 +259,6 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-<script src="script.js?v=12"></script>
+<script src="script.js?v=13"></script>
 </body>
-      </html>
+</html>
