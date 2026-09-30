@@ -393,3 +393,235 @@ generateQRCode();
 })();
 
 console.log('🔧 Ek düzeltmeler yüklendi');
+// ============================================================
+// YEMEK DETAY MODALI
+// ============================================================
+
+// Yemek ekstra bilgileri (kalori, hazırlık, alerjen)
+var foodInfo = {
+  1: { cal: 180, prep: 15, allergens: ['gluten'] },
+  2: { cal: 220, prep: 10, allergens: ['susam'] },
+  3: { cal: 310, prep: 20, allergens: ['gluten', 'süt'] },
+  4: { cal: 90, prep: 8, allergens: [] },
+  5: { cal: 340, prep: 25, allergens: ['gluten'] },
+  6: { cal: 780, prep: 20, allergens: ['gluten', 'süt'] },
+  7: { cal: 420, prep: 25, allergens: ['balık'] },
+  8: { cal: 620, prep: 30, allergens: ['gluten'] },
+  9: { cal: 480, prep: 30, allergens: ['süt'] },
+  10: { cal: 650, prep: 22, allergens: ['gluten', 'süt'] },
+  11: { cal: 720, prep: 40, allergens: [] },
+  12: { cal: 380, prep: 12, allergens: [] },
+  13: { cal: 420, prep: 5, allergens: ['süt', 'gluten', 'yumurta'] },
+  14: { cal: 380, prep: 5, allergens: ['süt', 'gluten', 'yumurta'] },
+  15: { cal: 460, prep: 15, allergens: ['süt', 'gluten', 'yumurta'] },
+  16: { cal: 380, prep: 5, allergens: ['gluten', 'fıstık', 'süt'] },
+  17: { cal: 280, prep: 5, allergens: ['süt'] },
+  18: { cal: 15, prep: 5, allergens: [] },
+  19: { cal: 190, prep: 5, allergens: ['süt'] },
+  20: { cal: 110, prep: 3, allergens: [] },
+  21: { cal: 120, prep: 5, allergens: [] },
+  22: { cal: 320, prep: 8, allergens: ['süt'] },
+  23: { cal: 80, prep: 2, allergens: ['süt'] },
+  24: { cal: 10, prep: 3, allergens: [] }
+};
+
+var foodModal = document.getElementById('foodModal');
+var currentFoodId = null;
+var currentPortion = { size: 'M', mult: 1 };
+var currentQty = 1;
+
+// Yemek kartına tıklayınca modal aç
+// Mevcut renderMenu fonksiyonunu güncellemek yerine, kartlara listener ekleyeceğiz
+var originalRenderMenu = window.renderMenu;
+if (typeof renderMenu === 'function') {
+  var eskiRender = renderMenu;
+  renderMenu = function () {
+    eskiRender.apply(this, arguments);
+    // Modal açma listener'ı ekle
+    document.querySelectorAll('#menuGrid .menu-item').forEach(function (card) {
+      var addBtn = card.querySelector('[data-add]');
+      if (!addBtn) return;
+      var id = parseInt(addBtn.dataset.add);
+      // Kart tıklaması → modal aç
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', function (e) {
+        if (e.target.closest('[data-f]')) return; // kalp ikonu
+        if (e.target.closest('[data-add]')) return; // sepete ekle butonu
+        openFoodModal(id);
+      });
+    });
+  };
+}
+
+function openFoodModal(id) {
+  var item = items.filter(function (x) { return x.id === id; })[0];
+  if (!item) return;
+  currentFoodId = id;
+  currentPortion = { size: 'M', mult: 1 };
+  currentQty = 1;
+
+  var info = foodInfo[id] || { cal: '-', prep: '-', allergens: [] };
+
+  document.getElementById('foodImage').style.backgroundImage = 'url(\'' + item.img + '\')';
+  document.getElementById('foodName').textContent = item.name;
+  document.getElementById('foodDesc').textContent = item.desc;
+  document.getElementById('foodPrice').textContent = item.price + '₺';
+
+  var metaHtml = '<span>🔥 ' + info.cal + ' kcal</span><span>⏱️ ' + info.prep + ' dk</span>';
+  if (info.allergens.length) {
+    metaHtml += '<span style="grid-column:1/-1">⚠️ ' + info.allergens.join(', ') + '</span>';
+  } else {
+    metaHtml += '<span style="grid-column:1/-1">✅ Alerjen yok</span>';
+  }
+  document.getElementById('foodMeta').innerHTML = metaHtml;
+
+  // Porsiyon sıfırla
+  document.querySelectorAll('.portion-btn').forEach(function (b) {
+    b.classList.toggle('active', b.dataset.size === 'M');
+  });
+  document.getElementById('qtyNum').textContent = '1';
+
+  foodModal.classList.add('active');
+}
+
+function closeFoodModal() {
+  foodModal.classList.remove('active');
+}
+
+// Modal kapatma
+document.getElementById('foodClose').addEventListener('click', closeFoodModal);
+foodModal.addEventListener('click', function (e) {
+  if (e.target === foodModal) closeFoodModal();
+});
+
+// Porsiyon
+document.querySelectorAll('.portion-btn').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    document.querySelectorAll('.portion-btn').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    currentPortion.size = btn.dataset.size;
+    currentPortion.mult = parseFloat(btn.dataset.mult);
+    updateModalPrice();
+  });
+});
+
+function updateModalPrice() {
+  var item = items.filter(function (x) { return x.id === currentFoodId; })[0];
+  if (!item) return;
+  var price = Math.round(item.price * currentPortion.mult);
+  document.getElementById('foodPrice').textContent = price + '₺';
+}
+
+// Adet +/−
+document.getElementById('qtyMinus').addEventListener('click', function () {
+  if (currentQty > 1) {
+    currentQty--;
+    document.getElementById('qtyNum').textContent = currentQty;
+  }
+});
+document.getElementById('qtyPlus').addEventListener('click', function () {
+  currentQty++;
+  document.getElementById('qtyNum').textContent = currentQty;
+});
+
+// Sepete Ekle
+document.getElementById('foodAdd').addEventListener('click', function () {
+  var item = items.filter(function (x) { return x.id === currentFoodId; })[0];
+  if (!item) return;
+
+  var price = Math.round(item.price * currentPortion.mult);
+  var key = item.id + '_' + currentPortion.size;
+
+  var ex = null;
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].key === key) ex = cart[i];
+  }
+  if (ex) ex.qty += currentQty;
+  else cart.push({
+    id: item.id,
+    key: key,
+    portion: currentPortion.size,
+    price: price,
+    qty: currentQty
+  });
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+  toast('🛒 ' + item.name + ' (' + currentPortion.size + ') eklendi');
+  renderCart();
+  closeFoodModal();
+});
+
+// ============================================================
+// SEPET RENDER'İ GÜNCELLE (porsiyon + fiyat)
+// ============================================================
+var eskiRenderCart = renderCart;
+renderCart = function () {
+  var n = 0;
+  for (var k = 0; k < cart.length; k++) n += cart[k].qty;
+  document.getElementById('cartBadge').textContent = n;
+  document.getElementById('cartBadge').style.display = n > 0 ? 'grid' : 'none';
+
+  var box = document.getElementById('cartItems');
+  if (!cart.length) {
+    document.getElementById('cartEmpty').style.display = 'block';
+    box.innerHTML = '';
+    document.getElementById('cartTotal').textContent = '0₺';
+    return;
+  }
+  document.getElementById('cartEmpty').style.display = 'none';
+
+  var total = 0;
+  var html = '';
+  for (var k = 0; k < cart.length; k++) {
+    var c = cart[k];
+    var it = items.filter(function (x) { return x.id === c.id; })[0];
+    if (!it) continue;
+    var p = c.price || it.price;
+    total += p * c.qty;
+    var portionLabel = c.portion ? ' (' + c.portion + ')' : '';
+    html += '<div class="cart-item">';
+    html += '<div class="cart-item__img" style="background-image:url(\'' + it.img + '\')"></div>';
+    html += '<div class="cart-item__info">';
+    html += '<div class="cart-item__name">' + it.name + portionLabel + '</div>';
+    html += '<div class="cart-item__price">' + (p * c.qty) + '₺</div>';
+    html += '<div class="cart-item__controls">';
+    html += '<button class="qty-btn" data-m="' + k + '">−</button>';
+    html += '<span class="cart-item__qty">' + c.qty + '</span>';
+    html += '<button class="qty-btn" data-p="' + k + '">+</button>';
+    html += '</div></div>';
+    html += '<button class="cart-item__remove" data-r="' + k + '">🗑️</button>';
+    html += '</div>';
+  }
+  box.innerHTML = html;
+  document.getElementById('cartTotal').textContent = total + '₺';
+
+  box.querySelectorAll('[data-m]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var i = +b.dataset.m;
+      cart[i].qty--;
+      if (cart[i].qty <= 0) cart.splice(i, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    });
+  });
+  box.querySelectorAll('[data-p]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      cart[+b.dataset.p].qty++;
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    });
+  });
+  box.querySelectorAll('[data-r]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      cart.splice(+b.dataset.r, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    });
+  });
+};
+
+// İlk render
+renderMenu();
+renderCart();
+
+console.log('🍽️ Yemek detay modalı aktif!');
