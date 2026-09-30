@@ -310,3 +310,86 @@ setInterval(updateStatus, 60000);
 renderMenu();
 renderCart();
 generateQRCode();
+// ============================================================
+// EKSİK DÜZELTMELER
+// ============================================================
+
+// ===== QR KOD (API ile — kütüphane gerekmez) =====
+(function fixQR() {
+  var el = document.getElementById('qrCode');
+  if (!el) return;
+  var url = window.location.href.split('?')[0];
+  el.innerHTML = '<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(url) + '&color=8b3a1f&bgcolor=ffffff" style="width:155px;height:155px;display:block" alt="QR">';
+})();
+
+// ===== GARSON =====
+(function fixWaiter() {
+  var wb = document.getElementById('waiterBtn');
+  var wm = document.getElementById('waiterModal');
+  if (wb) wb.onclick = function () { if (wm) wm.classList.add('active'); };
+  var wc = document.getElementById('waiterClose');
+  if (wc) wc.onclick = function () { if (wm) wm.classList.remove('active'); };
+  if (wm) wm.onclick = function (e) { if (e.target === wm) wm.classList.remove('active'); };
+  document.querySelectorAll('.waiter-options button').forEach(function (b) {
+    b.onclick = function () {
+      var reason = b.dataset.reason || 'Yardım';
+      window.open('https://wa.me/905550000000?text=' + encodeURIComponent('🔔 Garson Çağrısı: ' + reason), '_blank');
+      if (wm) wm.classList.remove('active');
+    };
+  });
+})();
+
+// ===== YAZDIR =====
+(function fixPrint() {
+  var pb = document.getElementById('printBtn');
+  if (pb) pb.onclick = function () { window.print(); };
+})();
+
+// ===== PAYLAŞ =====
+(function fixShare() {
+  var sb = document.getElementById('shareBtn');
+  if (sb) sb.onclick = function () {
+    if (navigator.share) {
+      navigator.share({ title: 'Lezzet Durağı', url: window.location.href }).catch(function () {});
+    } else {
+      var i = document.createElement('input');
+      i.value = window.location.href;
+      document.body.appendChild(i);
+      i.select();
+      try { document.execCommand('copy'); toast('🔗 Link kopyalandı'); } catch (e) {}
+      i.remove();
+    }
+  };
+})();
+
+// ===== VERİ TEMİZLE =====
+(function fixClear() {
+  var cd = document.getElementById('clearDataBtn');
+  if (cd) cd.onclick = function (e) {
+    e.preventDefault();
+    if (confirm('Tüm veriler silinsin mi?')) { localStorage.clear(); location.reload(); }
+  };
+})();
+
+// ===== REZERVASYON =====
+(function fixReservation() {
+  var rf = document.getElementById('reservationForm');
+  if (!rf) return;
+  var di = rf.querySelector('input[name="tarih"]');
+  if (di) di.min = new Date().toISOString().split('T')[0];
+  rf.onsubmit = function (e) {
+    e.preventDefault();
+    var st = document.getElementById('reservationStatus');
+    st.textContent = '⏳ Gönderiliyor...';
+    st.style.color = 'gray';
+    var fd = new FormData(rf);
+    fetch(rf.action, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } })
+      .then(function (r) {
+        if (r.ok) { st.textContent = '✅ Rezervasyonunuz alındı!'; st.style.color = 'green'; rf.reset(); }
+        else { st.textContent = '❌ Bir hata oluştu'; st.style.color = 'red'; }
+      })
+      .catch(function () { st.textContent = '❌ Bağlantı hatası'; st.style.color = 'red'; });
+  };
+})();
+
+console.log('🔧 Ek düzeltmeler yüklendi');
