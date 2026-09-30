@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=11" />
+<link rel="stylesheet" href="style.css?v=12" />
 </head>
 <body>
 
@@ -25,9 +25,6 @@
     </div>
     <div class="topbar__actions">
       <button class="icon-btn" id="tableTag" title="Masa" style="display:none">🪑</button>
-      <button class="icon-btn" id="langBtn" title="Dil">TR</button>
-      <button class="icon-btn" id="currencyBtn" title="Para birimi">₺</button>
-      <button class="icon-btn" id="fontBtn" title="Yazı boyutu">Aa</button>
       <button class="icon-btn" id="themeBtn" title="Tema">🌙</button>
       <button class="icon-btn" id="waiterBtn" title="Garson Çağır">🔔</button>
       <button class="icon-btn icon-btn--badge" id="cartBtn" title="Sepet">
@@ -39,13 +36,13 @@
 
 <section class="hero">
   <div class="container">
-    <div class="hero__badge" data-i18n="welcome">✨ Hoş geldiniz</div>
+    <div class="hero__badge">✨ Hoş geldiniz</div>
     <h1 class="hero__title">
-      <span data-i18n="heroTitle1">Damaklarda</span>
-      <span data-i18n="heroTitle2" class="script">iz bırakan</span>
-      <span data-i18n="heroTitle3">lezzetler</span>
+      <span>Damaklarda</span>
+      <span class="script">iz bırakan</span>
+      <span>lezzetler</span>
     </h1>
-    <p class="hero__sub" data-i18n="heroSub">
+    <p class="hero__sub">
       Taze malzemeler, ustalıkla hazırlanan tarifler ve sıcak bir atmosfer.
     </p>
     <div class="hero__info">
@@ -62,7 +59,7 @@
     <div class="featured-bar">
       <span class="featured-bar__icon">👨‍🍳</span>
       <div class="featured-bar__text">
-        <strong data-i18n="chefPick">Şefin Önerisi</strong>
+        <strong>Şefin Önerisi</strong>
         <span id="featuredDish">Karışık Pizza — 165₺</span>
       </div>
     </div>
@@ -121,8 +118,8 @@
         <h2>Telefonunuzla okutun</h2>
         <p>Masadaki QR kodu okutarak bu menüye ulaşabilirsiniz.</p>
         <div class="qr-actions">
-          <button class="btn-mini" onclick="printMenu()">🖨️ Yazdır</button>
-          <button class="btn-mini" onclick="sharePage()">📤 Paylaş</button>
+          <button class="btn-mini" id="printBtn">🖨️ Yazdır</button>
+          <button class="btn-mini" id="shareBtn">📤 Paylaş</button>
         </div>
       </div>
       <div class="qr-code">
@@ -213,7 +210,7 @@
       <a href="#menu">Menü</a>
       <a href="#reservation">Rezervasyon</a>
       <a href="https://wa.me/905550000000" target="_blank">İletişim</a>
-      <a href="#" onclick="clearAllData();return false">Verileri Temizle</a>
+      <a href="#" id="clearDataBtn">Verileri Temizle</a>
     </div>
   </div>
 </footer>
@@ -251,10 +248,10 @@
       <h2>Garson Çağır</h2>
       <p>Ne için çağırıyorsunuz?</p>
       <div class="waiter-options">
-        <button onclick="callWaiter('Sipariş')">📝 Sipariş</button>
-        <button onclick="callWaiter('Hesap')">💳 Hesap</button>
-        <button onclick="callWaiter('Yardım')">❓ Yardım</button>
-        <button onclick="callWaiter('Su')">💧 Su</button>
+        <button data-reason="Sipariş">📝 Sipariş</button>
+        <button data-reason="Hesap">💳 Hesap</button>
+        <button data-reason="Yardım">❓ Yardım</button>
+        <button data-reason="Su">💧 Su</button>
       </div>
     </div>
   </div>
@@ -262,34 +259,7 @@
 
 <div class="toast" id="toast"></div>
 
-<script>
-function printMenu() { window.print(); }
-function sharePage() {
-  if (navigator.share) {
-    navigator.share({ title: 'Lezzet Durağı', url: window.location.href });
-  } else {
-    alert('Link: ' + window.location.href);
-  }
-}
-function clearAllData() {
-  if (confirm('Tüm veriler silinsin mi?')) {
-    localStorage.clear();
-    location.reload();
-  }
-}
-function callWaiter(reason) {
-  var url = 'https://wa.me/905550000000?text=' + encodeURIComponent('🔔 Garson Çağrısı: ' + reason);
-  window.open(url, '_blank');
-  document.getElementById('waiterModal').classList.remove('active');
-}
-document.getElementById('waiterBtn') && document.getElementById('waiterBtn').addEventListener('click', function () {
-  document.getElementById('waiterModal').classList.add('active');
-});
-document.getElementById('waiterClose') && document.getElementById('waiterClose').addEventListener('click', function () {
-  document.getElementById('waiterModal').classList.remove('active');
-});
-</script>
-
-<script src="script.js?v=11"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="script.js?v=12"></script>
 </body>
-</html>
+      </html>
