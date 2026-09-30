@@ -1,5 +1,7 @@
+alert('TEST OK');
 // ===== MENÜ =====
 const items = [
+...
   { id: 1, name: 'Mercimek Çorbası', cat: 'starter', price: 75, desc: 'Tereyağlı geleneksel çorba.', img: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=400' },
   { id: 2, name: 'Humus Tabağı', cat: 'starter', price: 95, desc: 'Tahin, zeytinyağı ve limon.', img: 'https://images.unsplash.com/photo-1613514785940-daed07799d9b?w=400' },
   { id: 3, name: 'Sigara Böreği', cat: 'starter', price: 85, desc: 'Beyaz peynir ve maydanoz.', img: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400' },
