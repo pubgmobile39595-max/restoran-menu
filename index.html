@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=13" />
+<link rel="stylesheet" href="style.css?v=14" />
 </head>
 <body>
 
@@ -257,8 +257,40 @@
   </div>
 </div>
 
+<div class="modal" id="foodModal">
+  <div class="modal__content">
+    <button class="modal__close" id="foodClose" type="button">✕</button>
+    <div class="modal__image" id="foodImage"></div>
+    <div class="modal__body">
+      <div class="modal__head">
+        <h2 id="foodName"></h2>
+        <div class="modal__price" id="foodPrice"></div>
+      </div>
+      <p class="modal__desc" id="foodDesc"></p>
+      <div class="modal__meta" id="foodMeta"></div>
+      <div class="option-group">
+        <label class="option-group__label">Porsiyon</label>
+        <div class="portion-btns" id="portionBtns">
+          <button type="button" class="portion-btn" data-size="S" data-mult="0.8">S</button>
+          <button type="button" class="portion-btn active" data-size="M" data-mult="1">M</button>
+          <button type="button" class="portion-btn" data-size="L" data-mult="1.4">L</button>
+        </div>
+      </div>
+      <div class="option-group">
+        <label class="option-group__label">Adet</label>
+        <div class="qty-btns">
+          <button type="button" id="qtyMinus" class="qty-btn">−</button>
+          <span id="qtyNum" class="cart-item__qty">1</span>
+          <button type="button" id="qtyPlus" class="qty-btn">+</button>
+        </div>
+      </div>
+      <button class="btn-submit" id="foodAdd" type="button"><span>🛒</span> Sepete Ekle</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
-<script src="script.js?v=13"></script>
+<script src="script.js?v=14"></script>
 </body>
 </html>
