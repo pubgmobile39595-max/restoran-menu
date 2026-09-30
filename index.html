@@ -4,18 +4,16 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Lezzet Durağı — Dijital Menü</title>
-<meta name="description" content="Lezzet Durağı dijital menü. Tüm yemekler, alerjen bilgileri, sepet ve sipariş." />
+<meta name="description" content="Lezzet Durağı dijital menü." />
 <meta name="theme-color" content="#8b3a1f" />
-<link rel="manifest" href="data:application/json,%7B%22name%22%3A%22Lezzet%20Dura%C4%9F%C4%B1%22%2C%22short_name%22%3A%22Lezzet%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%238b3a1f%22%2C%22theme_color%22%3A%22%238b3a1f%22%7D" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='75' font-size='80' text-anchor='middle'>🍽️</text></svg>" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="style.css?v=11" />
 </head>
 <body>
 
-<!-- ÜST BAR -->
 <header class="topbar">
   <div class="container topbar__inner">
     <div class="topbar__logo">
@@ -39,7 +37,6 @@
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <div class="container">
     <div class="hero__badge" data-i18n="welcome">✨ Hoş geldiniz</div>
@@ -60,7 +57,6 @@
   </div>
 </section>
 
-<!-- ÖNE ÇIKAN / ŞEF ÖNERİSİ -->
 <section class="featured-section">
   <div class="container">
     <div class="featured-bar">
@@ -73,107 +69,96 @@
   </div>
 </section>
 
-<!-- ARAMA + KATEGORİLER -->
 <section class="filter-section" id="menu">
   <div class="container">
     <div class="search-wrapper">
       <span class="search-icon">🔍</span>
-      <input type="text" id="searchInput" class="search-input" placeholder="Yemek ara..." data-i18n-placeholder="searchPh" autocomplete="off" />
+      <input type="text" id="searchInput" class="search-input" placeholder="Yemek ara..." autocomplete="off" />
       <button class="search-clear" id="searchClear" style="display:none">✕</button>
     </div>
 
     <div class="categories" id="categories">
-      <button class="cat-btn active" data-cat="all"><span>📖</span> <span data-i18n="catAll">Tümü</span></button>
-      <button class="cat-btn" data-cat="popular"><span>⭐</span> <span data-i18n="catPopular">Popüler</span></button>
-      <button class="cat-btn" data-cat="new"><span>✨</span> <span data-i18n="catNew">Yeni</span></button>
-      <button class="cat-btn" data-cat="starter"><span>🥗</span> <span data-i18n="catStarter">Başlangıçlar</span></button>
-      <button class="cat-btn" data-cat="main"><span>🍕</span> <span data-i18n="catMain">Ana Yemekler</span></button>
-      <button class="cat-btn" data-cat="dessert"><span>🍰</span> <span data-i18n="catDessert">Tatlılar</span></button>
-      <button class="cat-btn" data-cat="drink"><span>🥤</span> <span data-i18n="catDrink">İçecekler</span></button>
-      <button class="cat-btn" data-cat="vegan"><span>🌱</span> <span data-i18n="catVegan">Vegan</span></button>
-      <button class="cat-btn cat-btn--fav" data-cat="fav"><span>❤️</span> <span data-i18n="catFav">Favoriler</span></button>
+      <button class="cat-btn active" data-cat="all"><span>📖</span> <span>Tümü</span></button>
+      <button class="cat-btn" data-cat="popular"><span>⭐</span> <span>Popüler</span></button>
+      <button class="cat-btn" data-cat="new"><span>✨</span> <span>Yeni</span></button>
+      <button class="cat-btn" data-cat="starter"><span>🥗</span> <span>Başlangıçlar</span></button>
+      <button class="cat-btn" data-cat="main"><span>🍕</span> <span>Ana Yemekler</span></button>
+      <button class="cat-btn" data-cat="dessert"><span>🍰</span> <span>Tatlılar</span></button>
+      <button class="cat-btn" data-cat="drink"><span>🥤</span> <span>İçecekler</span></button>
+      <button class="cat-btn" data-cat="vegan"><span>🌱</span> <span>Vegan</span></button>
+      <button class="cat-btn cat-btn--fav" data-cat="fav"><span>❤️</span> <span>Favoriler</span></button>
     </div>
 
     <div class="sort-row">
-      <label class="sort-label"><span data-i18n="sortBy">Sırala:</span>
+      <label class="sort-label"><span>Sırala:</span>
         <select id="sortSelect" class="sort-select">
-          <option value="default" data-i18n="sortDefault">Varsayılan</option>
-          <option value="price-asc" data-i18n="sortPriceAsc">Fiyat ↑</option>
-          <option value="price-desc" data-i18n="sortPriceDesc">Fiyat ↓</option>
-          <option value="name" data-i18n="sortName">İsim A-Z</option>
-          <option value="rating" data-i18n="sortRating">Puan</option>
+          <option value="default">Varsayılan</option>
+          <option value="price-asc">Fiyat ↑</option>
+          <option value="price-desc">Fiyat ↓</option>
+          <option value="name">İsim A-Z</option>
         </select>
-      </label>
-      <label class="sort-label checkbox-label">
-        <input type="checkbox" id="onlyNoAllergen" />
-        <span data-i18n="noAllergen">Alerjensiz</span>
       </label>
     </div>
   </div>
 </section>
 
-<!-- MENÜ -->
 <section class="menu-section">
   <div class="container">
     <div class="menu-grid" id="menuGrid"></div>
     <div class="no-result" id="noResult" style="display:none">
       <div class="no-result__icon">🍽️</div>
-      <h3 data-i18n="noResultTitle">Sonuç bulunamadı</h3>
-      <p data-i18n="noResult">Farklı bir arama yapmayı deneyin.</p>
+      <h3>Sonuç bulunamadı</h3>
+      <p>Farklı bir arama yapmayı deneyin.</p>
     </div>
   </div>
 </section>
 
-<!-- QR KOD -->
 <section class="qr-section">
   <div class="container">
     <div class="qr-wrapper">
       <div class="qr-content">
-        <span class="qr-badge" data-i18n="qrBadge">📱 Mobil Menü</span>
-        <h2 data-i18n="qrTitle">Telefonunuzla okutun</h2>
-        <p data-i18n="qrSub">Masadaki QR kodu okutarak bu menüye ulaşabilirsiniz.</p>
+        <span class="qr-badge">📱 Mobil Menü</span>
+        <h2>Telefonunuzla okutun</h2>
+        <p>Masadaki QR kodu okutarak bu menüye ulaşabilirsiniz.</p>
         <div class="qr-actions">
-          <button class="btn-mini" onclick="downloadQR()">⬇️ <span data-i18n="qrDownload">İndir</span></button>
-          <button class="btn-mini" onclick="printMenu()">🖨️ <span data-i18n="print">Yazdır</span></button>
-          <button class="btn-mini" onclick="sharePage()">📤 <span data-i18n="share">Paylaş</span></button>
-          <button class="btn-mini" onclick="installPWA()">📲 <span data-i18n="install">Yükle</span></button>
+          <button class="btn-mini" onclick="printMenu()">🖨️ Yazdır</button>
+          <button class="btn-mini" onclick="sharePage()">📤 Paylaş</button>
         </div>
       </div>
       <div class="qr-code">
         <div class="qr-code__frame" id="qrCode"></div>
-        <p class="qr-code__label" data-i18n="qrLabel">Menüye Git</p>
+        <p class="qr-code__label">Menüye Git</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- REZERVASYON -->
 <section class="section reservation-section" id="reservation">
   <div class="container container--narrow">
     <div class="section__head">
-      <span class="section__eyebrow" data-i18n="resEyebrow">Rezervasyon</span>
-      <h2 class="section__title" data-i18n="resTitle">Masa Ayırtın</h2>
-      <p class="section__lead" data-i18n="resLead">Özel günleriniz için yerinizi şimdiden ayırtın.</p>
+      <span class="section__eyebrow">Rezervasyon</span>
+      <h2 class="section__title">Masa Ayırtın</h2>
+      <p class="section__lead">Özel günleriniz için yerinizi şimdiden ayırtın.</p>
     </div>
 
     <form class="reservation-form" id="reservationForm" action="https://formspree.io/f/mjykljwb" method="POST">
       <div class="form-row">
-        <label><span data-i18n="formName">Ad Soyad</span><input type="text" name="ad" required placeholder="Adınız" /></label>
-        <label><span data-i18n="formPhone">Telefon</span><input type="tel" name="telefon" required placeholder="+90 5xx" /></label>
+        <label><span>Ad Soyad</span><input type="text" name="ad" required placeholder="Adınız" /></label>
+        <label><span>Telefon</span><input type="tel" name="telefon" required placeholder="+90 5xx" /></label>
       </div>
       <div class="form-row">
-        <label><span data-i18n="formDate">Tarih</span><input type="date" name="tarih" required /></label>
-        <label><span data-i18n="formTime">Saat</span><input type="time" name="saat" required /></label>
+        <label><span>Tarih</span><input type="date" name="tarih" required /></label>
+        <label><span>Saat</span><input type="time" name="saat" required /></label>
       </div>
       <div class="form-row">
-        <label><span data-i18n="formPeople">Kişi Sayısı</span>
+        <label><span>Kişi Sayısı</span>
           <select name="kisi" required>
             <option value="">-</option>
             <option value="1">1</option><option value="2">2</option><option value="3">3</option>
             <option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7+">7+</option>
           </select>
         </label>
-        <label><span data-i18n="formArea">Alan</span>
+        <label><span>Alan</span>
           <select name="alan">
             <option value="ic">İç Mekan</option>
             <option value="bahce">Bahçe</option>
@@ -182,190 +167,129 @@
           </select>
         </label>
       </div>
-      <label><span data-i18n="formNote">Özel Notunuz</span><textarea name="not" rows="3"></textarea></label>
-      <button type="submit" class="btn-submit"><span>🗓️</span> <span data-i18n="formSubmit">Rezervasyon Yap</span></button>
+      <label><span>Özel Notunuz</span><textarea name="not" rows="3"></textarea></label>
+      <button type="submit" class="btn-submit"><span>🗓️</span> Rezervasyon Yap</button>
       <div id="reservationStatus" class="form-status"></div>
     </form>
   </div>
 </section>
 
-<!-- İLETİŞİM -->
 <section class="section contact-section">
   <div class="container">
     <div class="contact-grid">
       <div class="contact-card">
         <div class="contact-card__icon">📞</div>
-        <h3 data-i18n="contactPhone">Telefon</h3>
+        <h3>Telefon</h3>
         <p>+90 (212) 555 00 00</p>
-        <a href="tel:+902125550000" class="contact-card__action" data-i18n="contactCall">Hemen Ara</a>
+        <a href="tel:+902125550000" class="contact-card__action">Hemen Ara</a>
       </div>
       <div class="contact-card">
         <div class="contact-card__icon">💬</div>
         <h3>WhatsApp</h3>
-        <p data-i18n="contactWa">Sipariş ve bilgi</p>
-        <a href="https://wa.me/905550000000" target="_blank" class="contact-card__action" data-i18n="contactWaBtn">Mesaj Gönder</a>
+        <p>Sipariş ve bilgi</p>
+        <a href="https://wa.me/905550000000" target="_blank" class="contact-card__action">Mesaj Gönder</a>
       </div>
       <div class="contact-card">
         <div class="contact-card__icon">📍</div>
-        <h3 data-i18n="contactAddr">Adres</h3>
+        <h3>Adres</h3>
         <p>Beşiktaş, İstanbul</p>
-        <a href="https://maps.google.com/?q=Besiktas,Istanbul" target="_blank" class="contact-card__action" data-i18n="contactMap">Yol Tarifi</a>
+        <a href="https://maps.google.com/?q=Besiktas,Istanbul" target="_blank" class="contact-card__action">Yol Tarifi</a>
       </div>
       <div class="contact-card">
         <div class="contact-card__icon">📸</div>
-        <h3 data-i18n="contactSocial">Sosyal Medya</h3>
+        <h3>Sosyal Medya</h3>
         <p>@lezzetduragi</p>
-        <a href="https://instagram.com" target="_blank" class="contact-card__action" data-i18n="contactFollow">Takip Et</a>
+        <a href="https://instagram.com" target="_blank" class="contact-card__action">Takip Et</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer class="footer">
   <div class="container">
     <div class="footer__logo"><span>🍽️</span> Lezzet Durağı</div>
     <p class="footer__text">© 2026 Lezzet Durağı. 💛</p>
     <div class="footer__links">
-      <a href="#menu" data-i18n="footerMenu">Menü</a>
-      <a href="#reservation" data-i18n="footerRes">Rezervasyon</a>
-      <a href="https://wa.me/905550000000" target="_blank" data-i18n="footerContact">İletişim</a>
-      <a href="#" onclick="clearAllData();return false" data-i18n="footerClear">Verileri Temizle</a>
+      <a href="#menu">Menü</a>
+      <a href="#reservation">Rezervasyon</a>
+      <a href="https://wa.me/905550000000" target="_blank">İletişim</a>
+      <a href="#" onclick="clearAllData();return false">Verileri Temizle</a>
     </div>
   </div>
 </footer>
 
-<!-- SEPET PANELİ -->
 <aside class="cart-panel" id="cartPanel">
   <div class="cart-panel__header">
-    <h3>🛒 <span data-i18n="cartTitle">Sepetim</span></h3>
+    <h3>🛒 Sepetim</h3>
     <button class="cart-panel__close" id="cartClose">✕</button>
   </div>
   <div class="cart-panel__body">
     <div class="cart-empty" id="cartEmpty">
       <div style="font-size:3rem;opacity:0.3">🛒</div>
-      <p data-i18n="cartEmpty">Sepetiniz boş</p>
+      <p>Sepetiniz boş</p>
     </div>
     <div class="cart-items" id="cartItems"></div>
   </div>
   <div class="cart-panel__footer">
-    <div class="coupon-row">
-      <input type="text" id="couponInput" placeholder="Kupon kodu" data-i18n-placeholder="couponPh" />
-      <button id="couponApply" data-i18n="couponApply">Uygula</button>
-    </div>
-    <div class="cart-line" id="discountLine" style="display:none">
-      <span data-i18n="discount">İndirim:</span>
-      <strong id="discountAmount" style="color:var(--green)">-0₺</strong>
-    </div>
     <div class="cart-total">
-      <span data-i18n="cartTotal">Toplam:</span>
+      <span>Toplam:</span>
       <strong id="cartTotal">0₺</strong>
     </div>
-    <button class="btn-submit" id="cartSend" onclick="sendCart()">
-      <span>💬</span> <span data-i18n="cartSend">WhatsApp ile Sipariş Ver</span>
+    <button class="btn-submit" id="cartSend">
+      <span>💬</span> WhatsApp ile Sipariş Ver
     </button>
-    <button class="cart-clear" id="cartClear" data-i18n="cartClear">Sepeti Temizle</button>
+    <button class="cart-clear" id="cartClear">Sepeti Temizle</button>
   </div>
 </aside>
 <div class="cart-overlay" id="cartOverlay"></div>
 
-<!-- YEMEK DETAY MODALI -->
-<div class="modal" id="foodModal">
-  <div class="modal__content">
-    <button class="modal__close" id="modalClose">✕</button>
-    <div class="modal__image" id="modalImage"></div>
-    <div class="modal__body">
-      <div class="modal__head">
-        <h2 id="modalName"></h2>
-        <div class="modal__price" id="modalPrice"></div>
-      </div>
-      <p class="modal__desc" id="modalDesc"></p>
-      <div class="modal__tags" id="modalTags"></div>
-
-      <div class="modal__meta">
-        <div class="meta-item">
-          <span class="meta-label" data-i18n="calories">Kalori</span>
-          <strong id="modalCalories">-</strong>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label" data-i18n="prepTime">Hazırlık</span>
-          <strong id="modalTime">-</strong>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label" data-i18n="serves">Porsiyon</span>
-          <strong id="modalServes">1</strong>
-        </div>
-      </div>
-
-      <!-- PORSİYON -->
-      <div class="option-group">
-        <label class="option-group__label" data-i18n="portion">Porsiyon</label>
-        <div class="portion-btns">
-          <button class="portion-btn" data-size="S" data-mult="0.8">S</button>
-          <button class="portion-btn active" data-size="M" data-mult="1">M</button>
-          <button class="portion-btn" data-size="L" data-mult="1.4">L</button>
-        </div>
-      </div>
-
-      <!-- EKSTRALAR -->
-      <div class="option-group">
-        <label class="option-group__label" data-i18n="extras">Ekstralar</label>
-        <div class="extras-list" id="modalExtras"></div>
-      </div>
-
-      <!-- YEMEĞE NOT -->
-      <div class="option-group">
-        <label class="option-group__label" data-i18n="foodNote">Yemeğe Not</label>
-        <input type="text" id="modalNote" class="modal-note" placeholder="Acısız, soğansız vb." />
-      </div>
-
-      <div class="modal__rating">
-        <div class="stars" id="modalStars"></div>
-        <span class="rating-text" id="modalRatingText"></span>
-      </div>
-
-      <div class="modal__actions">
-        <button class="btn-add" id="modalAdd">🛒 <span data-i18n="modalAdd">Sepete Ekle</span></button>
-        <button class="btn-fav" id="modalFav">🤍</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- GARSON MODALI -->
 <div class="modal" id="waiterModal">
   <div class="modal__content modal__content--small">
     <button class="modal__close" id="waiterClose">✕</button>
     <div class="waiter-content">
       <div class="waiter-icon">🔔</div>
-      <h2 data-i18n="waiterTitle">Garson Çağır</h2>
-      <p data-i18n="waiterSub">Ne için çağırıyorsunuz?</p>
+      <h2>Garson Çağır</h2>
+      <p>Ne için çağırıyorsunuz?</p>
       <div class="waiter-options">
-        <button onclick="callWaiter('Sipariş')">📝 <span data-i18n="waiterOrder">Sipariş</span></button>
-        <button onclick="callWaiter('Hesap')">💳 <span data-i18n="waiterBill">Hesap</span></button>
-        <button onclick="callWaiter('Yardım')">❓ <span data-i18n="waiterHelp">Yardım</span></button>
-        <button onclick="callWaiter('Su')">💧 <span data-i18n="waiterWater">Su</span></button>
+        <button onclick="callWaiter('Sipariş')">📝 Sipariş</button>
+        <button onclick="callWaiter('Hesap')">💳 Hesap</button>
+        <button onclick="callWaiter('Yardım')">❓ Yardım</button>
+        <button onclick="callWaiter('Su')">💧 Su</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SİPARİŞ TAKİBİ -->
-<div class="order-tracker" id="orderTracker">
-  <div class="order-tracker__inner">
-    <div class="order-tracker__icon" id="trackerIcon">⏳</div>
-    <div class="order-tracker__text">
-      <strong id="trackerStatus">Sipariş Alındı</strong>
-      <span id="trackerTime">0:00</span>
-    </div>
-    <button class="order-tracker__close" id="trackerClose">✕</button>
-  </div>
-</div>
-
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-<script src="script.js"></script>
+<script>
+function printMenu() { window.print(); }
+function sharePage() {
+  if (navigator.share) {
+    navigator.share({ title: 'Lezzet Durağı', url: window.location.href });
+  } else {
+    alert('Link: ' + window.location.href);
+  }
+}
+function clearAllData() {
+  if (confirm('Tüm veriler silinsin mi?')) {
+    localStorage.clear();
+    location.reload();
+  }
+}
+function callWaiter(reason) {
+  var url = 'https://wa.me/905550000000?text=' + encodeURIComponent('🔔 Garson Çağrısı: ' + reason);
+  window.open(url, '_blank');
+  document.getElementById('waiterModal').classList.remove('active');
+}
+document.getElementById('waiterBtn') && document.getElementById('waiterBtn').addEventListener('click', function () {
+  document.getElementById('waiterModal').classList.add('active');
+});
+document.getElementById('waiterClose') && document.getElementById('waiterClose').addEventListener('click', function () {
+  document.getElementById('waiterModal').classList.remove('active');
+});
+</script>
+
+<script src="script.js?v=11"></script>
 </body>
-              </html>
+</html>
